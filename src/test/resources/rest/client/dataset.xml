@@ -1,0 +1,11 @@
+<dataset>
+    <organization id="1" name="test"/>
+
+    <user id="1" organization_id="1" first_name="test" last_name="test" email="test@test.com" password="test" role="ADMIN"/>
+
+    <client id="1" first_name="tom" last_name="pet" birth_date="11.11.1111"/>
+    <client id="2" first_name="sam" last_name="peter" birth_date="11.11.1111"/>
+    <client id="3" first_name="tomas" last_name="sam" birth_date="11.11.1111"/>
+    <client id="4" first_name="tomas" last_name="peter" birth_date="11.11.1111"/>
+
+</dataset>

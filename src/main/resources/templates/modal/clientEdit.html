@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="modal fade" id="clientEditModal" tabindex="-1" role="dialog" aria-labelledby="clientEditModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clientEditModalLabel">Client info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="clientEditModalForm" method="post">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-ssn">Ssn (Last 4)</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-ssn"
+                                       name="ssn"
+                                       class="form-control"
+                                       placeholder="Ssn (last4)">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-firstName">First name</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-firstName"
+                                       name="firstName"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="First name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-lastName">Last name</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-lastName"
+                                       name="lastName"
+                                       class="form-control"
+                                       placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-address1">Address line 1</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-address1"
+                                       name="address1"
+                                       class="form-control"
+                                       placeholder="Address line 1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-address2">Address line 2</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-address2"
+                                       name="address2"
+                                       class="form-control"
+                                       placeholder="Address line 2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-city">City</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-city"
+                                       name="city"
+                                       class="form-control"
+                                       placeholder="City">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-state">State</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-state"
+                                       name="state"
+                                       class="form-control"
+                                       placeholder="State">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-zip">Zip</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-zip"
+                                       name="zip"
+                                       class="form-control"
+                                       placeholder="Zip">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-birthDate">Birth date</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-birthDate"
+                                       name="birthDate"
+                                       class="form-control birth-date-picker"
+                                       placeholder="Birth date">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-email">Email</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-email"
+                                       name="email"
+                                       class="form-control"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-phone">Phone</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-phone"
+                                       name="phone"
+                                       class="form-control"
+                                       placeholder="Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="clientEditModal-spouseSsn">Spouse ssn
+                                (Last 4)</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="clientEditModal-spouseSsn"
+                                       name="spouseSsn"
+                                       class="form-control"
+                                       placeholder="Spouse ssn (last4)">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button id="clientEditModalSubmit" type="button" class="btn btn-primary">Save</button>
+                    <th:block sec:authorize="hasAnyAuthority('ISSUE_DOCUMENT')">
+                        <a id="clientEditModalCreateDocBtn" class="btn btn-primary active"
+                           href="#" role="button" aria-pressed="false">Create new document</a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

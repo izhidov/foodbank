@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1 class="text-center my-3">Organization search form</h1>
+    <form action="#" th:action="@{/api/organization/search}" th:object="${organizationSearchForm}" method="get">
+        <div class="row form-group">
+            <label class="col-form-label col-md-2" for="organizationName">Organization name:</label>
+            <div class="col-md-10">
+                <input type="text"
+                       id="organizationName"
+                       th:field="*{organizationName}"
+                       th:errorclass="fieldError"
+                       class="form-control"
+                       autofocus="autofocus"
+                       placeholder="Organization name">
+                <span class="errorDesc" th:if="${#fields.hasErrors('organizationName')}"
+                      th:errors="*{organizationName}">Organization name error</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit"
+                       name="organization-search-submit"
+                       id="organization-search-submit"
+                       class="form-control btn btn-info"
+                       value="Search">
+            </div>
+            <div class="col-md-2">
+                <input type="button"
+                       name="create-organization-btn"
+                       id="createOrganizationBtn"
+                       class="form-control btn btn-success"
+                       data-toggle="modal"
+                       data-target="#organizationEditModal"
+                       value="Add organization">
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row justify-content-center">
+        <div class="table-responsive col-md-10 mt-3" th:unless="${#lists.isEmpty(organizationList)}">
+            <h3 class="text-center my-3">Organizations</h3>
+            <table class="table table-hover table-bordered organizationsTable">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="organization-list-row" th:each="organization : ${organizationList}" th:attr="data-id=${organization.id}">
+                    <td class="organization-list-td" title="View organization info" data-toggle="tooltip" th:text="${organization.name}"></td>
+                    <td class="organization-list-td" title="View organization info" data-toggle="tooltip" th:text="${organization.type}"></td>
+                    <td class="organization-list-td" title="View organization info" data-toggle="tooltip" th:text="${organization.email}"></td>
+                    <td class="organization-list-td" title="View organization info" data-toggle="tooltip" th:text="${organization.phone}"></td>
+                    <!--<td class="actions-col">-->
+                        <!--<a class="add" th:href="@{/api/user/create/{organizationId}(organizationId=${organization.id})}"-->
+                           <!--title="Add user" data-toggle="tooltip"><i class="material-icons">account_box</i></a>-->
+                    <!--</td>-->
+                </tr>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(organizationList)}" th:remove="tag">
+            <h3 class="text-center mt-3">No Data</h3>
+        </div>
+    </div>
+
+    <div th:include="modal/organizationEdit :: content"></div>
+</div>
+</body>
+</html>

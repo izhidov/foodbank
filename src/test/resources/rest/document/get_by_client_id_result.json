@@ -1,0 +1,16 @@
+{
+  "response" : [ {
+    "id" : 1,
+    "documentId" : 1,
+    "clientId" : 1,
+    "documentNumber" : "1",
+    "isRecipient" : true,
+    "postedAt" : "2017-12-04T10:00:00.000Z"
+  }, {
+    "id" : 3,
+    "documentId" : 2,
+    "clientId" : 1,
+    "documentNumber" : "2",
+    "isRecipient" : false
+  } ]
+}

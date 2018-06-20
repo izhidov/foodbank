@@ -1,0 +1,9 @@
+spring:
+    datasource:
+        name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/fp
+        username: app
+        password: password
+
+fp:
+

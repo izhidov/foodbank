@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/pdf.css" />
+    <title>Food pantry</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        @page{
+            margin: 1.3cm 2cm;
+            size: A4 portrait;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;"><strong>EMERGENCY FOOD PANTRY</strong></h2>
+<p style="text-align: center; margin: 1px;">Sixth &amp; Minnesota</p>
+<p style="text-align: center; margin: 1px;">P.O. Box 1203</p>
+<p style="text-align: center; margin: 1px;">Chickasha, Oklahoma 73023</p>
+<p style="text-align: center; margin: 1px;" th:text="${'Agency: ' + document.organizationName}"></p>
+<p style="text-align: center; margin: 1px;" th:text="${'Document number: ' + document.number}"></p>
+
+<p style="text-align: left;"><u><span th:text="${'Document valid until: ' + document.expiredAt}"></span></u></p>
+<p style="text-align: left;"><u><span th:text="${'Eligibility Date: ' + document.eligibilityDate}"></span></u></p>
+<p style="text-align: left;"><u><span th:text="${'Date ' + document.createdAt}"></span></u></p>
+<p style="text-align: left;">Persons living together as one household:</p>
+<table style="width: 686px;">
+    <thead>
+    <tr>
+        <td style="width: 20px;">#</td>
+        <td style="width: 274px;">Name</td>
+        <td style="width: 199px;">Birth date / Age</td>
+        <td style="width: 162px;">Child under 18?</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="member, stat : ${document.members}">
+        <td th:text="${stat.count}"></td>
+        <td th:text="${member.firstName + ' ' + member.lastName}"></td>
+        <td th:text="${member.birthDate} + ' / ' + ${member.age}"></td>
+        <td th:text="${member.age} < 18 ? 'Yes' : 'No'"></td>
+    </tr>
+    </tbody>
+</table>
+<p><span>Client's STREET Address (no PO Box Please): </span><span th:text="${document.client.address1}"></span></p>
+<p><span>City - Zip Code (Please list): </span><span th:text="${document.client.city + ' - ' + document.client.zip}"></span></p>
+<p><span>Last 4 digits of Client's Social Security Number: </span><span th:text="${document.client.ssn}"></span></p>
+<p><span>Last 4 digits of Spouse's Social Security Number: </span><span th:text="${document.client.spouseSsn}"></span></p>
+<p><span style="text-decoration: underline;"><strong>RELEASE OF INFORMATION:</strong></span> I give my consent for release of information of my situation from the records of any referring social service agency to determine eligibility for Emergency Food Pantry service.</p>
+<p><span style="text-decoration: underline;"><strong>DISCLAIMER</strong></span>: The Emergency Food Pantry and its donors express no warranties in this gift of food and disclaim any liability or causes of action resulting from the condition of the donated food. The client agrees not to sellany of this food.</p>
+<p><span style="text-decoration: underline;"><strong>PREVIOUS VISIT</strong></span>: No one from this household, including myself has received food from this pantry in the last eight weeks.</p>
+<p>Client's Signature: _____________________________________</p>
+<p>Other Information: _____________________________________</p>
+<p>Agency Name: ________________________________________</p>
+<p>Agency Representative Signature: ________________________</p>
+<p>*********************************************************************************************************************************</p>
+<p>Food Pantry Volunteer's Signature: _______________________</p>
+<p>Date of Services: ______________________________________</p>
+</body>
+</html>

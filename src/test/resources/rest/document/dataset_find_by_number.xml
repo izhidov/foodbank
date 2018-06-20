@@ -1,0 +1,20 @@
+<dataset>
+    <organization id="1" type='BASE' name="test"/>
+
+    <user id="1" organization_id="1" first_name="test" last_name="test" email="test@test.com" password="test" role="ADMIN"/>
+
+    <client id="1" first_name="tom" last_name="pet" birth_date="11.11.1111"/>
+    <client id="2" first_name="sam" last_name="peter" birth_date="11.11.1111"/>
+    <client id="3" first_name="tomas" last_name="sam" birth_date="11.11.1111"/>
+
+    <document id="1" type="VOUCHER" number="1" client_id="1" issued_user_id="1"
+              issued_organization_id="1" posted_user_id="1" posted_organization_id="1"
+              posted_at="2017-12-04 10:00:00.000" expired_at="2017-12-04 10:00:00.000"/>
+
+    <member id="1" first_name="1" last_name="1" birth_date="11.11.1111"/>
+
+    <document_member id="1" document_id="1" client_id="1" member_id="1"/>
+    <document_member id="2" document_id="1" client_id="2" member_id="1"/>
+    <document_member id="3" document_id="1" client_id="3" member_id="1"/>
+
+</dataset>

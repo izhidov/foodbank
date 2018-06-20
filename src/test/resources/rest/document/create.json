@@ -1,0 +1,15 @@
+{
+  "type": "VOUCHER",
+  "client": {
+    "id": 1
+  },
+  "members": [{
+    "firstName": "person1FN",
+    "lastName": "person1LN",
+    "birthDate": "11.11.1112"
+  },{
+    "firstName": "person2FN",
+    "lastName": "person2LN",
+    "birthDate": "11.11.1113"
+  }]
+}

@@ -1,0 +1,109 @@
+h1 {
+    color: #4164bb;
+}
+
+h3 {
+    color: #78bb7d;
+}
+
+footer {
+    position: fixed;
+    height: 50px;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccc;
+}
+
+footer p {
+    padding: 15px;
+}
+
+#logo-img {
+    size: 24px;
+}
+
+.navigation-btn-group, .layout{
+    margin-bottom: 80px;
+}
+
+tr.recipient {
+    background-color: rgba(80, 164, 87, 0.25);
+}
+tr.non-recipient {
+    background-color: rgba(164, 100, 109, 0.25);
+}
+
+.fieldError {
+    border-color:#a94442 !important;
+}
+
+.errorDesc {
+    color: #a94442;
+    font-size: x-small;
+    float: right;
+    text-align: right;
+}
+
+.clientsTable td a.view-list {
+    color: #5d5fba;
+}
+
+.clientsTable td a.create-doc {
+    color: #4cba4d;
+}
+
+.clientsTable td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+}
+.clientsTable td i {
+    font-size: 30px;
+}
+
+td.actions-col {
+    width:1%;
+    white-space:nowrap;
+}
+
+.organizationsTable td a.view-list {
+    color: #5d5fba;
+}
+
+.organizationsTable td a.create-doc {
+    color: #4cba4d;
+}
+
+.organizationsTable td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+}
+.organizationsTable td i {
+    font-size: 30px;
+}
+
+.usersTable td a.view-list {
+    color: #5d5fba;
+}
+
+.usersTable td a.create-doc {
+    color: #4cba4d;
+}
+
+.usersTable td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+}
+.usersTable td i {
+    font-size: 30px;
+}
+
+.user-list-td, .organization-list-td, .client-list-td {
+    cursor: pointer;
+}
+

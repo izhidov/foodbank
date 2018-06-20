@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1 th:text="${'Client ' + clientName + ' documents'}" class="text-center my-3">Client documents</h1>
+    <div class="row justify-content-center">
+        <div class="table-responsive col-md-12 mt-3" th:unless="${#lists.isEmpty(documentList)}">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">Number</th>
+                    <th scope="col">Issued by (user)</th>
+                    <th scope="col">Issued by (org)</th>
+                    <th scope="col">Expired at</th>
+                    <th scope="col">Posted at</th>
+                    <th scope="col">Created at</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="document : ${documentList}">
+                    <td>
+                        <a th:text="${document.number}"
+                           th:href="@{/api/document/{id}(id = ${document.id})}"></a>
+                    </td>
+                    <td th:text="${document.issuedUserEmail}"></td>
+                    <td th:text="${document.issuedOrganizationName}"></td>
+                    <td th:text="${document.expiredAt}"></td>
+                    <td th:text="${document.postedAt}"></td>
+                    <td th:text="${document.createdAt}"></td>
+
+                </tr>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(documentList)}" th:remove="tag">
+            <h3 class="text-center mt-3">No Data</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>

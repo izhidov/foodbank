@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1 class="text-center my-3">Clients search form</h1>
+    <form action="#" th:action="@{/api/client/search}" th:object="${clientSearchForm}" method="get">
+        <div class="row"><div class="form-group col-md-2">
+            <label class="col-form-label" for="ssn">Ssn (Last 4)</label>:
+            <input type="text"
+                   id="ssn"
+                   th:field="*{ssn}"
+                   th:errorclass="fieldError"
+                   class="form-control"
+                   autofocus="autofocus"
+                   placeholder="Ssn (Last 4)">
+            <span class="errorDesc" th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}">Ssn Error</span>
+        </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="firstName">First name:</label>
+                <input type="text"
+                       id="firstName"
+                       th:field="*{firstName}"
+                       th:errorclass="fieldError"
+                       class="form-control"
+                       autofocus="autofocus"
+                       placeholder="First name">
+                <span class="errorDesc" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">FirstName Error</span>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-form-label" for="lastname">Last name:</label>
+                <input type="text"
+                       id="lastName"
+                       name="lastName"
+                       th:field="*{lastName}"
+                       th:errorclass="fieldError"
+                       class="form-control"
+                       placeholder="Last name">
+                <span class="errorDesc" th:if="${#fields.hasErrors('lastName')}"
+                      th:errors="*{lastName}">LastName Error</span>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="col-form-label" for="lastname">Birth date:</label>
+                <div class="input-group date birth-date-picker">
+                    <input type="text"
+                           id="birthDate"
+                           th:field="*{birthDate}"
+                           th:errorclass="fieldError"
+                           class="form-control"
+                           placeholder="Birth date">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <span class="errorDesc" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">BirthDate Error</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit"
+                       name="client-search-submit"
+                       id="client-search-submit"
+                       class="form-control btn btn-info"
+                       value="Search">
+            </div>
+            <div class="col-md-2">
+                <input type="button"
+                       name="create-client-btn"
+                       id="createClientBtn"
+                       class="form-control btn btn-success"
+                       data-toggle="modal"
+                       data-target="#clientEditModal"
+                       value="Add client">
+            </div>
+        </div>
+    </form>
+
+    <div class="row justify-content-center">
+        <div class="table-responsive col-md-10 mt-3" th:unless="${#lists.isEmpty(clientList)}">
+            <h3 class="text-center my-3">Clients</h3>
+            <table class="table table-hover table-bordered clientsTable">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Birth date</th>
+                    <th scope="col">Ssn</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="client-list-row" th:each="client : ${clientList}" th:attr="data-id=${client.id}">
+                    <td class="client-list-td" title="View client info" data-toggle="tooltip" th:text="${client.firstName}"></td>
+                    <td class="client-list-td" title="View client info" data-toggle="tooltip" th:text="${client.lastName}"></td>
+                    <td class="client-list-td" title="View client info" data-toggle="tooltip" th:text="${client.birthDate}"></td>
+                    <td class="client-list-td" title="View client info" data-toggle="tooltip" th:text="${client.ssn}"></td>
+                    <td class="actions-col">
+                        <a class="view-list" th:href="@{/api/document/list/{clientId}(clientId=${client.id})}"
+                           title="View documents" data-toggle="tooltip"><i class="material-icons">list</i></a>
+                        <a class="create-doc" th:href="@{/api/document/precreate/fromClient/{clientId}(clientId=${client.id})}"
+                           title="Create new document" data-toggle="tooltip"><i class="material-icons">create</i>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(clientList)}" th:remove="tag">
+            <h3 class="text-center mt-3">No Data</h3>
+        </div>
+    </div>
+
+    <div th:include="modal/clientEdit :: content"></div>
+</div>
+</body>
+</html>

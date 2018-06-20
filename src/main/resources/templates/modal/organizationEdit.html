@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="modal fade" id="organizationEditModal" tabindex="-1" role="dialog"
+         aria-labelledby="organizationEditModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="organizationEditModalLabel">Organization info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="organizationEditModalForm" method="post">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-name">Name</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-name"
+                                       name="name"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-address1">Address line
+                                1</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-address1"
+                                       name="address1"
+                                       class="form-control"
+                                       placeholder="Address line 1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-address2">Address line
+                                2</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-address2"
+                                       name="address2"
+                                       class="form-control"
+                                       placeholder="Address line 2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-city">City</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-city"
+                                       name="city"
+                                       class="form-control"
+                                       placeholder="City">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-state">State</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-state"
+                                       name="state"
+                                       class="form-control"
+                                       placeholder="State">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-zip">Zip</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-zip"
+                                       name="zip"
+                                       class="form-control"
+                                       placeholder="Zip">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-email">Email</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-email"
+                                       name="email"
+                                       class="form-control"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-phone">Phone</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="organizationEditModal-phone"
+                                       name="phone"
+                                       class="form-control"
+                                       placeholder="Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="organizationEditModal-type">Type</label>
+                            <select id="organizationEditModal-type" name="type" class="custom-select form-control col-md-9">
+                                <option selected value="BASE">BASE</option>
+                                <option value="AGENT">AGENT</option>
+                                <option value="DISPENSER">DISPENSER</option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group row">-->
+                            <!--<div class="form-check">-->
+                                <!--<input class="form-check-input ml-0" name="active" type="checkbox" value="true"-->
+                                       <!--id="organizationEditModal-active">-->
+                                <!--<label class="form-check-label ml-4" for="organizationEditModal-active">-->
+                                    <!--Active-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button id="organizationEditModalSubmit" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

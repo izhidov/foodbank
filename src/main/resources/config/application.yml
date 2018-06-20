@@ -1,0 +1,74 @@
+flyway:
+    enabled: true
+    validate-on-migrate: true
+
+server:
+#    port: 8080
+    compression:
+        enabled: true
+    context-path: /fp
+
+management:
+    context-path: /manage
+    security:
+        enabled: false
+    info:
+        git:
+            mode: full
+
+logging:
+    config: classpath:config/logback-spring.xml
+    file: app.log
+    path: /var/log/app
+
+spring:
+    thymeleaf:
+        cache: false
+        check-template: true
+        check-template-location: true
+        content-type: text/html
+        enabled: true
+        encoding: UTF-8
+        mode: HTML
+        prefix: classpath:/templates/
+        suffix: .html
+    http:
+        encoding:
+            enabled: true
+            force: true
+            charset: UTF-8
+    profiles:
+        active: dev
+    application:
+        name: Food pantry service
+        index: 1
+        admin: enabled
+    datasource:
+        testOnBorrow: true
+        validationQuery: SELECT 1
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+            idle-timeout: 10000
+    jpa:
+        show-sql: false
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: false
+            hibernate.jdbc.use_get_generated_keys: true
+    messages:
+        basename: i18n/messages
+        cache-seconds: 1
+
+fp:
+    debug: true
+    swagger:
+        title: Food pantry service
+        description: Food pantry service
+        version: MASTER
+        termsOfServiceUrl: just use
+        contactName: contactName
+        contactUrl: 'mailto:user@fp.net'
+        contactEmail: user@fp.net
+        license: some
+        licenseUrl: some

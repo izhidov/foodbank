@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1 class="text-center my-3">Create document</h1>
+
+    <div class="row" th:if="${document != null}" th:remove="tag">
+        <h3 class="text-center my-3" th:text="${'Document: ' + document.number}">Document</h3>
+        <form id="createDocForm" action="#" th:action="@{/api/document}" th:object="${document}" method="post">
+            <input th:type="hidden" th:field="${document.number}">
+            <input th:type="hidden" th:field="${document.client.id}">
+            <div class="form-group row">
+                <label class="col-form-label col-md-2" for="createdAt">Created at:</label>
+                <div class="col-md-9">
+                    <input type="text"
+                           id="createdAt"
+                           th:field="${document.createdAt}"
+                           class="form-control date birth-date-picker"
+                           placeholder="Created at">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseClientInfo" role="button"
+                       aria-expanded="true" aria-controls="collapseClientInfo">
+                        Client info
+                    </a>
+                </div>
+                <div id="collapseClientInfo" class="collapse show col-md-10">
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">First name</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.firstName}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Last name</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.lastName}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Address line 1</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.address1}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Address line 2</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.address2}"
+                                   placeholder="Address line 2">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">City</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.city}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">State</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.state}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Zip</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.zip}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Birth date</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.birthDate}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Email</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.email}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Phone</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.phone}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Ssn (last4)</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.ssn}">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-md-2">Spouse ssn (last4)</label>
+                        <div class="col-md-10">
+                            <input type="text"
+                                   class="form-control"
+                                   th:field="${document.client.spouseSsn}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-2">
+                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseMembers" role="button"
+                       aria-expanded="false" aria-controls="collapseMembers">
+                        Members
+                    </a>
+                </div>
+                <div id="collapseMembers" class="collapse show col-md-10">
+                    <table class="table table-bordered membersTable">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">First name</th>
+                            <th scope="col">Last name</th>
+                            <th scope="col">Birth date</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="member, stat : ${document.members}">
+                            <input type="hidden" th:field="*{members[__${stat.index}__].id}"/>
+                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].firstName}"/>-->
+                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].lastName}"/>-->
+                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].birthDate}"/>-->
+                            <td>
+                                <input type="text" th:field="*{members[__${stat.index}__].firstName}" name="firstName" class="form-control"/>
+                            </td>
+                            <td>
+                                <input type="text" th:field="*{members[__${stat.index}__].lastName}" name="lastName" class="form-control"/>
+                            </td>
+                            <td>
+                                <input type="text" th:field="*{members[__${stat.index}__].birthDate}" name="birthDate" class="form-control birth-date-picker"/>
+                            </td>
+                            <td class="actions-col">
+                                <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+                </div>
+            </div>
+            <th:block sec:authorize="hasAnyAuthority('ISSUE_DOCUMENT')">
+                <!--<div class="clearfix mt-2">-->
+                    <!--<input type="submit"-->
+                           <!--name="document-create-submit"-->
+                           <!--id="document-create-submit"-->
+                           <!--class="btn btn-lg btn-warning float-right ml-1"-->
+                           <!--value="Create">-->
+                <!--</div>-->
+                <div class="clearfix mt-2">
+                    <input type="button"
+                           name="document-create-btn"
+                           id="documentCreateBtn"
+                           th:attr="data-client-id=${document.client.id}"
+                           class="btn btn-lg btn-warning float-right ml-1"
+                           value="Create">
+                </div>
+            </th:block>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Access Denied</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <div class="row">
+        <h1 class="my-3 text-center">Errors</h1>
+
+        <table class="table table-striped">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Param</th>
+                <th scope="col">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Timestamp</td>
+                <td th:text="${timestamp}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Status</td>
+                <td th:text="${status}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Method</td>
+                <td th:text="${method}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Path</td>
+                <td th:text="${path}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Error</td>
+                <td th:text="${error}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Exception</td>
+                <td th:text="${exception}"
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">4</th>
+                <td>Message</td>
+                <td th:text="${message}"/>
+            </tr>
+            <!--<tr>-->
+            <!--<th scope="row">4</th>-->
+            <!--<td>Params</td>-->
+            <!--<td th:text="${message}"/>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<th scope="row">4</th>-->
+            <!--<td>errors</td>-->
+            <!--<td th:text="${message}"/>-->
+            <!--</tr>-->
+            <tr>
+                <th scope="row">5</th>
+                <td>Trace</td>
+                <td>
+                    <pre th:text="${trace}"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

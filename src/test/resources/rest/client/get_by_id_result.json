@@ -1,0 +1,17 @@
+{
+  "response" : {
+    "id" : 1,
+    "firstName" : "tom",
+    "lastName" : "pet",
+    "address1" : "address1",
+    "address2" : "address2",
+    "city" : "city",
+    "state" : "state",
+    "zip" : "zip",
+    "birthDate" : "11.11.1111",
+    "email" : "email@email.email",
+    "phone" : "phone",
+    "ssn" : "ssn",
+    "spouseSsn" : "spouseSsn"
+  }
+}

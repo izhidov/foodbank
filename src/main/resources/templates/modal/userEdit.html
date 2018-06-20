@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<div th:fragment="content" th:remove="tag">
+    <div class="modal fade" id="userEditModal" tabindex="-1" role="dialog"
+         aria-labelledby="userEditModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userEditModalLabel">User info</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="userEditModalForm" method="post">
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-firstName">First name</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="userEditModal-firstName"
+                                       name="firstName"
+                                       class="form-control"
+                                       autofocus="autofocus"
+                                       placeholder="First name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-lastName">Last name</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="userEditModal-lastName"
+                                       name="lastName"
+                                       class="form-control"
+                                       placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-email">Email</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="userEditModal-email"
+                                       name="email"
+                                       class="form-control"
+                                       placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-password">Password</label>
+                            <div class="col-md-9">
+                                <input type="password"
+                                       id="userEditModal-password"
+                                       name="password"
+                                       class="form-control"
+                                       placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-phone">Phone</label>
+                            <div class="col-md-9">
+                                <input type="text"
+                                       id="userEditModal-phone"
+                                       name="phone"
+                                       class="form-control"
+                                       placeholder="Phone">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-role">Role</label>
+                            <select id="userEditModal-role" name="role"
+                                    class="custom-select form-control col-md-9">
+                                <option selected value="USER">USER</option>
+                                <option value="ADMIN">ADMIN</option>
+                            </select>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-3" for="userEditModal-organizationId">Organization</label>
+                            <select id="userEditModal-organizationId" name="organizationId"
+                                    class="custom-select form-control col-md-9">
+                                <option th:each="organization : ${organizations}" th:value="${organization.id}" th:text="${organization.description}">Base</option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group row">-->
+                            <!--<div class="form-check">-->
+                                <!--<input class="form-check-input ml-0" name="active" type="checkbox" value="true"-->
+                                       <!--id="userEditModal-active">-->
+                                <!--<label class="form-check-label ml-4" for="userEditModal-active">-->
+                                    <!--Active-->
+                                <!--</label>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button id="userEditModalSubmit" type="button" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

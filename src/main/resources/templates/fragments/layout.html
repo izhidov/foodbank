@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datepicker3.standalone.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/membersTable.css}"/>
+
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Food Pantry</title>
+</head>
+<body>
+<th:block th:replace="fragments/header :: header"/>
+<div class="container layout">
+    <th:block layout:fragment="content"/>
+    <!--<div sec:authorize="isAuthenticated()" class="mt-5 navigation-btn-group">-->
+        <!--<input class="btn btn-outline-primary"-->
+               <!--onclick='javascript:window.history.back()' value='Back' type='button'/>-->
+        <!--<input class="btn btn-outline-primary float-right"-->
+               <!--onclick='javascript:window.history.forward()' value='Forward' type='button'/>-->
+    <!--</div>-->
+</div>
+<th:block th:replace="fragments/footer :: footer"/>
+</body>
+</html>

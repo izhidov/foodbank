@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Index</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <h1 class="text-center my-3">User search form</h1>
+    <form action="#" th:action="@{/api/user/search}" th:object="${userSearchForm}" method="get">
+        <div class="row form-group">
+            <label class="col-form-label col-md-2" for="userEmail">User email:</label>
+            <div class="col-md-10">
+                <input type="text"
+                       id="userEmail"
+                       th:field="*{userEmail}"
+                       th:errorclass="fieldError"
+                       class="form-control"
+                       autofocus="autofocus"
+                       placeholder="User email">
+                <span class="errorDesc" th:if="${#fields.hasErrors('userEmail')}"
+                      th:errors="*{userEmail}">User email error</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <input type="submit"
+                       name="user-search-submit"
+                       id="user-search-submit"
+                       class="form-control btn btn-info"
+                       value="Search">
+            </div>
+            <div class="col-md-2">
+                <input type="button"
+                       name="create-user-btn"
+                       id="createUserBtn"
+                       class="form-control btn btn-success"
+                       data-toggle="modal"
+                       data-target="#userEditModal"
+                       value="Add user">
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="row justify-content-center">
+        <div class="table-responsive col-md-10 mt-3" th:unless="${#lists.isEmpty(userList)}">
+            <h3 class="text-center my-3">Users</h3>
+            <table class="table table-hover table-bordered usersTable">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">First name</th>
+                    <th scope="col">Last name</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="user-list-row" th:each="user : ${userList}" th:attr="data-id=${user.id}">
+                    <td class="user-list-td" title="View user info" data-toggle="tooltip" th:text="${user.firstName}"></td>
+                    <td class="user-list-td" title="View user info" data-toggle="tooltip" th:text="${user.lastName}"></td>
+                    <td class="user-list-td" title="View user info" data-toggle="tooltip" th:text="${user.role}"></td>
+                    <td class="user-list-td" title="View user info" data-toggle="tooltip" th:text="${user.email}"></td>
+                    <!--<td class="actions-col">-->
+                    <!--<a class="add" th:href="@{/api/user/create/{userId}(userId=${user.id})}"-->
+                    <!--title="Add user" data-toggle="tooltip"><i class="material-icons">account_box</i></a>-->
+                    <!--</td>-->
+                </tr>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(userList)}" th:remove="tag">
+            <h3 class="text-center mt-3">No Data</h3>
+        </div>
+    </div>
+
+    <div th:include="modal/userEdit :: content"></div>
+</div>
+</body>
+</html>
