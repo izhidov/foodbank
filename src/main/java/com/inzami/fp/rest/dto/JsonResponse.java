@@ -10,14 +10,14 @@ public class JsonResponse<G> {
     private ResponseType responseType;
 
     public static <G> JsonResponse<G> success(G response) {
-        JsonResponse jsonResponse = new JsonResponse();
+        JsonResponse<G> jsonResponse = new JsonResponse<>();
         jsonResponse.setResponseType(ResponseType.SUCCESS);
         jsonResponse.setResult(response);
         return jsonResponse;
     }
 
     public static <G> JsonResponse<G> formError(G error) {
-        JsonResponse jsonResponse = new JsonResponse();
+        JsonResponse<G> jsonResponse = new JsonResponse<>();
         jsonResponse.setResponseType(ResponseType.FORM_ERROR);
         jsonResponse.setResult(error);
         return jsonResponse;

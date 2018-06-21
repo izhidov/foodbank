@@ -85,8 +85,10 @@ public class DocumentService {
         documentSaveDTO.setNumber(number);
         documentSaveDTO.setClient(clientViewDTO);
         Document lastDocument = documentRepository.findFirstByClientOrderByCreatedAtDesc(client);
-        List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(lastDocument.getMembers(), MemberViewDTO.class);
-        documentSaveDTO.setMembers(memberViewDTOS);
+        if(lastDocument != null && CollectionUtils.isNotEmpty(lastDocument.getMembers())) {
+            List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(lastDocument.getMembers(), MemberViewDTO.class);
+            documentSaveDTO.setMembers(memberViewDTOS);
+        }
         return documentSaveDTO;
     }
 

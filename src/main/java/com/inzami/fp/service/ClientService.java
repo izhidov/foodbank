@@ -6,6 +6,7 @@ import com.inzami.fp.repository.ClientRepository;
 import com.inzami.fp.rest.dto.save.ClientSaveDTO;
 import com.inzami.fp.rest.dto.search.ClientSearchForm;
 import com.inzami.fp.rest.dto.update.ClientUpdateDTO;
+import com.inzami.fp.rest.dto.view.ClientInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -104,5 +106,17 @@ public class ClientService {
         Client client = mapperFacade.map(clientSaveDTO, Client.class);
         save(client);
         return client;
+    }
+
+    public List<ClientInfoDTO> autocompleteBySsn(String ssn){
+        List<Client> clients = clientRepository.findBySsnStartingWith(ssn, new PageRequest(0, 50));
+        List<ClientInfoDTO> clientInfoDTOS = clients.stream().map(client -> {
+            ClientInfoDTO clientInfoDTO = new ClientInfoDTO();
+            clientInfoDTO.setId(client.getId());
+            clientInfoDTO.setSsn(client.getSsn());
+            clientInfoDTO.setInfo(client.getFirstName() + " " + client.getLastName() + " " + client.getBirthDate());
+            return clientInfoDTO;
+        }).collect(Collectors.toList());
+        return clientInfoDTOS;
     }
 }

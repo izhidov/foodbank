@@ -6,6 +6,7 @@ import com.inzami.fp.rest.dto.JsonResponse;
 import com.inzami.fp.rest.dto.save.ClientSaveDTO;
 import com.inzami.fp.rest.dto.search.ClientSearchForm;
 import com.inzami.fp.rest.dto.update.ClientUpdateDTO;
+import com.inzami.fp.rest.dto.view.ClientInfoDTO;
 import com.inzami.fp.rest.dto.view.ClientViewDTO;
 import com.inzami.fp.service.ClientService;
 import io.swagger.annotations.Api;
@@ -37,6 +38,16 @@ public class ClientController {
     private ClientService clientService;
     @Autowired
     private MapperFacade mapperFacade;
+
+    // ssn autocomplete
+    @GetMapping("/autocomplete/ssn/{ssn}")
+    @ApiOperation(value = "Autocomplete. Search clients info by ssn")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    public JsonResponse<List<ClientInfoDTO>> autocompleteBySsn(@PathVariable("ssn") String ssn) {
+        List<ClientInfoDTO> result = clientService.autocompleteBySsn(ssn);
+        return JsonResponse.success(result);
+    }
 
     // first name autocomplete
     @GetMapping("/autocomplete/firstname")
