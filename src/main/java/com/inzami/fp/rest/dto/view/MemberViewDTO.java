@@ -13,6 +13,6 @@ public class MemberViewDTO {
     private String firstName;
     @NotNull
     private String lastName;
-//    @Pattern(regexp = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
+//    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
     private String birthDate;
 }

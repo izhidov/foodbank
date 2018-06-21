@@ -22,7 +22,7 @@ public class Client extends AbstractAuditingEntity {
     private String city;
     private String state;
     private String zip;
-    @Pattern(regexp = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
+    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
     private String birthDate;
 	private String email;
     private String phone;

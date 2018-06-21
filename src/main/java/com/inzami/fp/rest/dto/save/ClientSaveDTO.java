@@ -22,7 +22,7 @@ public class ClientSaveDTO {
     private String state;
     @NotBlank
     private String zip;
-    @Pattern(regexp = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
+    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
     private String birthDate;
     @Email
     private String email;

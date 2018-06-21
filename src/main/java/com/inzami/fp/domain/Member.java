@@ -17,7 +17,7 @@ public class Member extends AbstractAuditingEntity {
     private Long id;
     private String firstName;
     private String lastName;
-//    @Pattern(regexp = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
+    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
     private String birthDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")

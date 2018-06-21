@@ -23,7 +23,7 @@ public class ClientViewDTO {
     private String state;
     @NotBlank
     private String zip;
-    @Pattern(regexp = "\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d", message = "Incorrect format. Use MM/dd/yyyy")
+//    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Incorrect format. Use MM/dd/yyyy")
     private String birthDate;
     @NotBlank
     @Email
