@@ -27,6 +27,4 @@ public class ClientSaveDTO {
     @Email
     private String email;
     private String phone;
-    private String ssn;
-    private String spouseSsn;
 }

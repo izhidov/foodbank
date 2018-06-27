@@ -26,6 +26,4 @@ public class Client extends AbstractAuditingEntity {
     private String birthDate;
 	private String email;
     private String phone;
-    private String ssn;
-    private String spouseSsn;
 }

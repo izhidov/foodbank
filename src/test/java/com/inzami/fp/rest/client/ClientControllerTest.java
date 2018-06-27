@@ -180,7 +180,7 @@ public class ClientControllerTest {
 
         em.flush();
 
-        List<Client> clients = clientRepository.findByFirstNameLikeAndLastNameLikeAndSnnLikeAndBirthDateLike("1", "1", "1", "22.22.2222", new PageRequest(0, 10));
+        List<Client> clients = clientRepository.findByFirstNameLikeAndLastNameLikeAndBirthDateLike("1", "1", "22.22.2222", new PageRequest(0, 10));
         Client client = clients.iterator().next();
 
         ClientSaveDTO clientSaveDTO = objectMapper.readValue(resources.get("/rest/client/create.json"), ClientSaveDTO.class);
@@ -189,12 +189,10 @@ public class ClientControllerTest {
         assertThat(client.getBirthDate(), is(clientSaveDTO.getBirthDate()));
         assertThat(client.getAddress1(), is(clientSaveDTO.getAddress1()));
         assertThat(client.getAddress2(), is(clientSaveDTO.getAddress2()));
-        assertThat(client.getState(), is(clientSaveDTO.getSpouseSsn()));
+        assertThat(client.getState(), is(clientSaveDTO.getState()));
         assertThat(client.getCity(), is(clientSaveDTO.getCity()));
         assertThat(client.getZip(), is(clientSaveDTO.getZip()));
         assertThat(client.getEmail(), is(clientSaveDTO.getEmail()));
         assertThat(client.getPhone(), is(clientSaveDTO.getPhone()));
-        assertThat(client.getSsn(), is(clientSaveDTO.getSsn()));
-        assertThat(client.getSpouseSsn(), is(clientSaveDTO.getSpouseSsn()));
     }
 }

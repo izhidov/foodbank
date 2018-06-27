@@ -25,11 +25,7 @@ public class ClientUpdateDTO {
     private String zip;
     @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Incorrect format. Use dd/mm/yyyy")
     private String birthDate;
-    @NotBlank
     @Email
     private String email;
     private String phone;
-    @Pattern(regexp = "\\d\\d\\d\\d", message = "Incorrect format. 4 digits.")
-    private String ssn;
-    private String spouseSsn;
 }

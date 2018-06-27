@@ -9,5 +9,4 @@ public class ClientInfoDTO {
 
     private Long id;
     private String info;
-    private String ssn;
 }

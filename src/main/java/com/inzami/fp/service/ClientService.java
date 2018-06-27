@@ -44,8 +44,8 @@ public class ClientService {
 
     public List<Client> searchClients(ClientSearchForm clientSearchForm) {
         Pageable pageable = new PageRequest(clientSearchForm.getPage(), clientSearchForm.getLimit());
-        List<Client> clients = clientRepository.findByFirstNameLikeAndLastNameLikeAndSnnLikeAndBirthDateLike(
-                clientSearchForm.getFirstName(), clientSearchForm.getLastName(), clientSearchForm.getSsn(), clientSearchForm.getBirthDate(), pageable);
+        List<Client> clients = clientRepository.findByFirstNameLikeAndLastNameLikeAndBirthDateLike(
+                clientSearchForm.getFirstName(), clientSearchForm.getLastName(), clientSearchForm.getBirthDate(), pageable);
         return clients;
     }
 
@@ -70,9 +70,6 @@ public class ClientService {
         if (StringUtils.isNotBlank(clientUpdateDTO.getAddress1())) {
             client.setAddress1(clientUpdateDTO.getAddress1());
         }
-        if (StringUtils.isNotBlank(clientUpdateDTO.getAddress2())) {
-            client.setAddress2(clientUpdateDTO.getAddress2());
-        }
         if (StringUtils.isNotBlank(clientUpdateDTO.getCity())) {
             client.setCity(clientUpdateDTO.getCity());
         }
@@ -85,18 +82,9 @@ public class ClientService {
         if (StringUtils.isNotBlank(clientUpdateDTO.getBirthDate())) {
             client.setBirthDate(clientUpdateDTO.getBirthDate());
         }
-        if (StringUtils.isNotBlank(clientUpdateDTO.getEmail())) {
-            client.setEmail(clientUpdateDTO.getEmail());
-        }
-        if (StringUtils.isNotBlank(clientUpdateDTO.getPhone())) {
-            client.setPhone(clientUpdateDTO.getPhone());
-        }
-        if (StringUtils.isNotBlank(clientUpdateDTO.getSsn())) {
-            client.setSsn(clientUpdateDTO.getSsn());
-        }
-        if (StringUtils.isNotBlank(clientUpdateDTO.getSpouseSsn())) {
-            client.setSpouseSsn(clientUpdateDTO.getSpouseSsn());
-        }
+        client.setAddress2(clientUpdateDTO.getAddress2());
+        client.setEmail(clientUpdateDTO.getEmail());
+        client.setPhone(clientUpdateDTO.getPhone());
 
         client = clientRepository.save(client);
         return client;
@@ -106,17 +94,5 @@ public class ClientService {
         Client client = mapperFacade.map(clientSaveDTO, Client.class);
         save(client);
         return client;
-    }
-
-    public List<ClientInfoDTO> autocompleteBySsn(String ssn){
-        List<Client> clients = clientRepository.findBySsnStartingWith(ssn, new PageRequest(0, 50));
-        List<ClientInfoDTO> clientInfoDTOS = clients.stream().map(client -> {
-            ClientInfoDTO clientInfoDTO = new ClientInfoDTO();
-            clientInfoDTO.setId(client.getId());
-            clientInfoDTO.setSsn(client.getSsn());
-            clientInfoDTO.setInfo(client.getFirstName() + " " + client.getLastName() + " " + client.getBirthDate());
-            return clientInfoDTO;
-        }).collect(Collectors.toList());
-        return clientInfoDTOS;
     }
 }

@@ -10,8 +10,6 @@
     "zip" : "zip",
     "birthDate" : "11.11.1111",
     "email" : "email@email.email",
-    "phone" : "phone",
-    "ssn" : "ssn",
-    "spouseSsn" : "spouseSsn"
+    "phone" : "phone"
   }
 }

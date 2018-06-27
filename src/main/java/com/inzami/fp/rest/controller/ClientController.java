@@ -39,16 +39,6 @@ public class ClientController {
     @Autowired
     private MapperFacade mapperFacade;
 
-    // ssn autocomplete
-    @GetMapping("/autocomplete/ssn/{ssn}")
-    @ApiOperation(value = "Autocomplete. Search clients info by ssn")
-    @PreAuthorize("isAuthenticated()")
-    @ResponseBody
-    public JsonResponse<List<ClientInfoDTO>> autocompleteBySsn(@PathVariable("ssn") String ssn) {
-        List<ClientInfoDTO> result = clientService.autocompleteBySsn(ssn);
-        return JsonResponse.success(result);
-    }
-
     // first name autocomplete
     @GetMapping("/autocomplete/firstname")
     @ApiOperation(value = "Search first names for autocomplete")
@@ -60,7 +50,7 @@ public class ClientController {
         return JsonResponse.success(result);
     }
 
-    // first name autocomplete
+    // last name autocomplete
     @GetMapping("/autocomplete/lastname")
     @ApiOperation(value = "Search last names for autocomplete")
     @PreAuthorize("isAuthenticated()")
@@ -71,12 +61,11 @@ public class ClientController {
         return JsonResponse.success(result);
     }
 
-    // first name autocomplete
     @GetMapping("/search")
     @ApiOperation(value = "Search clients")
     @PreAuthorize("isAuthenticated()")
     public String search(@Valid ClientSearchForm clientSearchForm, BindingResult bindingResult, Model model) {
-        if (StringUtils.isNotBlank(clientSearchForm.getBirthDate()) && !clientSearchForm.getBirthDate().matches("\\d\\d\\.\\d\\d\\.\\d\\d\\d\\d")) {
+        if (StringUtils.isNotBlank(clientSearchForm.getBirthDate()) && !clientSearchForm.getBirthDate().matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
             bindingResult.rejectValue("birthDate", "Pattern.birthDate","Format MM/dd/yyyy");
             model.addAttribute("clientSearchForm", clientSearchForm);
             return "client";
@@ -118,12 +107,6 @@ public class ClientController {
     @PreAuthorize("isAuthenticated()")
     @ResponseBody
     public JsonResponse create(@RequestBody @Valid ClientSaveDTO clientSaveDTO, BindingResult bindingResult) {
-        if (StringUtils.isNotBlank(clientSaveDTO.getSsn()) && !clientSaveDTO.getSsn().matches("\\d\\d\\d\\d")) {
-            bindingResult.rejectValue("ssn", "Pattern.ssn","Format XXXX");
-        }
-        if (StringUtils.isNotBlank(clientSaveDTO.getSpouseSsn()) && !clientSaveDTO.getSpouseSsn().matches("\\d\\d\\d\\d")) {
-            bindingResult.rejectValue("spouseSsn", "Pattern.spouseSsn","Format XXXX");
-        }
         if (bindingResult.hasErrors()) {
             return JsonResponse.formError(bindingResult.getAllErrors());
         }

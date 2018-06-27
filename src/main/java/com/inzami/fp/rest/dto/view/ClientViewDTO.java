@@ -10,28 +10,14 @@ import javax.validation.constraints.Pattern;
 public class ClientViewDTO {
 
     private Long id;
-    @NotBlank
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotBlank
     private String address1;
     private String address2;
-    @NotBlank
     private String city;
-    @NotBlank
     private String state;
-    @NotBlank
     private String zip;
-//    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Incorrect format. Use MM/dd/yyyy")
     private String birthDate;
-    @NotBlank
-    @Email
     private String email;
-    @NotBlank
     private String phone;
-    @NotBlank
-    private String ssn;
-    @NotBlank
-    private String spouseSsn;
 }

@@ -19,6 +19,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 @Service
@@ -38,6 +42,14 @@ public class UserService {
                 () -> new EntityNotFoundInServiceException(User.class, email, "email")
         );
         return user;
+    }
+
+    public static void main(String[] args) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(localDateTime);
+        System.out.println(localDateTime.truncatedTo(ChronoUnit.MINUTES));
+        System.out.println(localDateTime.with(LocalTime.MIN));
+        System.out.println(localDateTime.with(LocalTime.MAX));
     }
 
     public User getCurrentUser() throws EntityNotFoundInServiceException {

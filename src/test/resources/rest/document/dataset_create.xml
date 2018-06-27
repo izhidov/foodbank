@@ -4,7 +4,7 @@
     <user id="1" organization_id="1" first_name="test" last_name="test" email="test@test.com" password="test" role="ADMIN"/>
 
     <client id="1" first_name="tom" last_name="pet" birth_date="11.11.1121" address1="address1" address2="address2"
-            city="city" state="state" zip="zip" email="email@a.a" phone="phone" ssn="ssn" spouse_ssn="spouseSnn"/>
+            city="city" state="state" zip="zip" email="email@a.a" phone="phone"/>
     <client id="2" first_name="sam" last_name="peter" birth_date="11.11.1122"/>
     <client id="3" first_name="tomas" last_name="sam" birth_date="11.11.1123"/>
 
