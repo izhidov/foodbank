@@ -1,2 +1,0 @@
-ALTER TABLE client DROP COLUMN ssn;
-ALTER TABLE client DROP COLUMN spouse_ssn;

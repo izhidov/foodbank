@@ -77,6 +77,10 @@ public class DocumentService {
     @Transactional
     public DocumentSaveDTO preCreateFromClient(Long clientId) {
         Client client = clientService.findOne(clientId);
+        return getDocumentSaveDTO(client);
+    }
+
+    private DocumentSaveDTO getDocumentSaveDTO(Client client) {
         String number = DocumentUtils.generateDocumentNumber(client, DocumentType.VOUCHER);
         ClientViewDTO clientViewDTO = mapperFacade.map(client, ClientViewDTO.class);
         DocumentSaveDTO documentSaveDTO = new DocumentSaveDTO();
@@ -84,11 +88,9 @@ public class DocumentService {
         documentSaveDTO.setCreatedAt(createdAt);
         documentSaveDTO.setNumber(number);
         documentSaveDTO.setClient(clientViewDTO);
-        Document lastDocument = documentRepository.findFirstByClientOrderByCreatedAtDesc(client);
-        if(lastDocument != null && CollectionUtils.isNotEmpty(lastDocument.getMembers())) {
-            List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(lastDocument.getMembers(), MemberViewDTO.class);
-            documentSaveDTO.setMembers(memberViewDTOS);
-        }
+        List<Member> members = memberRepository.findByClientAndActiveTrue(client);
+        List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(members, MemberViewDTO.class);
+        documentSaveDTO.setMembers(memberViewDTOS);
         return documentSaveDTO;
     }
 
@@ -97,16 +99,7 @@ public class DocumentService {
     public DocumentSaveDTO preCreateFromDocument(Long documentId) {
         Document document = findOne(documentId);
         Client client = document.getClient();
-        String number = DocumentUtils.generateDocumentNumber(client, DocumentType.VOUCHER);
-        ClientViewDTO clientViewDTO = mapperFacade.map(client, ClientViewDTO.class);
-        DocumentSaveDTO documentSaveDTO = new DocumentSaveDTO();
-        String createdAt = DateTimeFormatter.ofPattern("MM/dd/yyyy").format(ZonedDateTime.now());
-        documentSaveDTO.setCreatedAt(createdAt);
-        documentSaveDTO.setNumber(number);
-        documentSaveDTO.setClient(clientViewDTO);
-        List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(document.getMembers(), MemberViewDTO.class);
-        documentSaveDTO.setMembers(memberViewDTOS);
-        return documentSaveDTO;
+        return getDocumentSaveDTO(client);
     }
 
     @PreAuthorize("@appSpringSecurityExpressionService.hasIssueDocumentPermission()")
@@ -123,7 +116,7 @@ public class DocumentService {
         ZonedDateTime expiredAt = ZonedDateTime.now()
                 .plusDays(ConfigurationProperties.getIntegerProperty(ConfigurationProperties.VOUCHER_VALID_FOR_DAYS));
         document.setExpiredAt(expiredAt);
-        if(StringUtils.isNotBlank(documentSaveDTO.getCreatedAt())){
+        if (StringUtils.isNotBlank(documentSaveDTO.getCreatedAt())) {
             DateTimeFormatter parser = DateTimeFormatter.ofPattern("MM/dd/yyyy");
             LocalDate createdAtDate = LocalDate.parse(documentSaveDTO.getCreatedAt(), parser);
             ZonedDateTime createdAt = createdAtDate.atStartOfDay(ZoneId.systemDefault());
@@ -178,7 +171,7 @@ public class DocumentService {
         return file;
     }
 
-    public Boolean checkAlreadyReceived(Long clientId, Integer weeks){
+    public Boolean checkAlreadyReceived(Long clientId, Integer weeks) {
         ZonedDateTime zonedDateTime = ZonedDateTime.now().minusWeeks(weeks);
         Long count = documentRepository.countByClientIdAndCreatedAtAfter(clientId, zonedDateTime);
         return count > 0;

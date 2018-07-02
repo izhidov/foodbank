@@ -52,6 +52,10 @@ tr.non-recipient {
     color: #4cba4d;
 }
 
+.clientsTable td a.manage-members {
+    color: #ba6d6e;
+}
+
 .clientsTable td a {
     cursor: pointer;
     display: inline-block;

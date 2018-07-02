@@ -17,7 +17,7 @@
             <input th:type="hidden" th:field="${document.client.id}">
             <div class="form-group row">
                 <label class="col-form-label col-md-2" for="createdAt">Created at:</label>
-                <div class="col-md-9">
+                <div class="col-md-10">
                     <input type="text"
                            id="createdAt"
                            th:field="${document.createdAt}"
@@ -140,9 +140,6 @@
                         <tbody>
                         <tr th:each="member, stat : ${document.members}">
                             <input type="hidden" th:field="*{members[__${stat.index}__].id}"/>
-                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].firstName}"/>-->
-                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].lastName}"/>-->
-                            <!--<input type="hidden" th:field="*{members[__${stat.index}__].birthDate}"/>-->
                             <td>
                                 <input type="text" th:field="*{members[__${stat.index}__].firstName}" name="firstName" class="form-control"/>
                             </td>
@@ -151,6 +148,9 @@
                             </td>
                             <td>
                                 <input type="text" th:field="*{members[__${stat.index}__].birthDate}" name="birthDate" class="form-control birth-date-picker"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control member-age"/>
                             </td>
                             <td class="actions-col">
                                 <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">delete</i></a>

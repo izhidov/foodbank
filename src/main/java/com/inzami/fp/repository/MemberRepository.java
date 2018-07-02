@@ -10,5 +10,7 @@ import java.util.List;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    List<Member> findByClient(Client client);
+    List<Member> findByClientAndActiveTrue(Client client);
+    List<Member> findByClientId(Long clientId);
+    List<Member> findByClientIdAndActiveTrue(Long clientId);
 }

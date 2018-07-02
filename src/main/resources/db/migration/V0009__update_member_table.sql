@@ -1,0 +1,1 @@
+ALTER TABLE member ADD COLUMN active TINYINT(1) not null default 1;

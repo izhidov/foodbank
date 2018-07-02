@@ -7,6 +7,7 @@ import com.inzami.fp.rest.dto.search.ClientSearchForm;
 import com.inzami.fp.rest.dto.search.DocumentSearchForm;
 import com.inzami.fp.rest.dto.search.OrganizationSearchForm;
 import com.inzami.fp.rest.dto.search.UserSearchForm;
+import com.inzami.fp.rest.dto.view.MemberViewDTO;
 import com.inzami.fp.rest.dto.view.OrganizationSelectViewDTO;
 import com.inzami.fp.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;

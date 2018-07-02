@@ -189,7 +189,7 @@
                     </a>
                 </div>
                 <div id="collapseMembers" class="collapse col-md-10">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered members-view-table">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">First name</th>
@@ -201,7 +201,7 @@
                         <tr th:each="member : ${document.members}">
                             <td th:text="${member.firstName}"></td>
                             <td th:text="${member.lastName}"></td>
-                            <td th:text="${member.birthDate}"></td>
+                            <td class="member-dob" th:text="${member.birthDate}"></td>
                         </tr>
                     </table>
                 </div>

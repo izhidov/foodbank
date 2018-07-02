@@ -22,4 +22,5 @@ public class Member extends AbstractAuditingEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
+    private Boolean active;
 }
