@@ -23,7 +23,6 @@ function openMembersModal(anchor){
         $("#membersModal").on("shown.bs.modal", function () {
             $('#membersModalSave').on('click', function () {
                 saveMembers();
-
             });
             $(".add-new").click(function () {
                 var row = '<tr>' +
@@ -101,6 +100,7 @@ function saveMembers() {
 }
 
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     $(".add-new").click(function () {
         var index = $(".membersTable tbody tr:last-child").index() + 1;
         var row = '<tr>' +

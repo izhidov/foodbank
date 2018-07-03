@@ -5,6 +5,10 @@ var clientEditModalForm = $('#clientEditModalForm');
 var clientEditModalSubmit = $('#clientEditModalSubmit');
 var clientEditModalCreateDocBtn = $('#clientEditModalCreateDocBtn');
 
+clientEditModal.on('hidden.bs.modal', function (e) {
+    $('#clientSearchForm').submit();
+});
+
 $('#createClientBtn').on('click', function (event) {
     clientEditModalForm.attr('action', '/api/client');
     clientEditModalSubmit.text('Save');
