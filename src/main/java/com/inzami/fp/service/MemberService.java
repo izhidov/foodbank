@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,29 +30,31 @@ public class MemberService {
     private ClientRepository clientRepository;
 
     @Transactional
-    public Member saveOrUpdate(MemberViewDTO memberViewDTO, Client client) {
+    public Member saveOrUpdate(MemberUpdateDTO memberUpdateDTO, Client client) {
         Member member = null;
-        if(memberViewDTO.getId() != null){
-            member = memberRepository.findOne(memberViewDTO.getId());
+        if(memberUpdateDTO.getId() != null){
+            member = memberRepository.findOne(memberUpdateDTO.getId());
         }
         if(member == null){
             member = new Member();
+            member.setActive(true);
             member.setClient(client);
         }
-        member.setFirstName(memberViewDTO.getFirstName());
-        member.setLastName(memberViewDTO.getLastName());
-        member.setBirthDate(memberViewDTO.getBirthDate());
+        member.setFirstName(memberUpdateDTO.getFirstName());
+        member.setLastName(memberUpdateDTO.getLastName());
+        member.setBirthDate(memberUpdateDTO.getBirthDate());
         Member save = memberRepository.save(member);
         return save;
     }
 
-    public void saveMembers(Long clientId, List<MemberUpdateDTO> membersUpdateDTOS){
+    public List<Member> saveMembers(Long clientId, List<MemberUpdateDTO> membersUpdateDTOS){
         Client client = clientRepository.findOne(clientId);
         List<Member> memberList = memberRepository.findByClientId(clientId);
         memberList.forEach(member -> {
             member.setActive(false);
             memberRepository.save(member);
         });
+        List<Member> savedMembers = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(membersUpdateDTOS)) {
             membersUpdateDTOS.forEach(memberUpdateDTO -> {
                 Member member;
@@ -60,13 +63,16 @@ public class MemberService {
                 } else {
                     member = new Member();
                     member.setClient(client);
+                    member.setActive(true);
                 }
                 member.setFirstName(memberUpdateDTO.getFirstName());
                 member.setLastName(memberUpdateDTO.getLastName());
                 member.setBirthDate(memberUpdateDTO.getBirthDate());
                 member.setActive(memberUpdateDTO.getActive());
                 memberRepository.save(member);
+                savedMembers.add(member);
             });
         }
+        return savedMembers;
     }
 }

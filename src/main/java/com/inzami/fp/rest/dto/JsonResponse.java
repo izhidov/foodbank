@@ -16,6 +16,12 @@ public class JsonResponse<G> {
         return jsonResponse;
     }
 
+    public static <G> JsonResponse<G> error() {
+        JsonResponse<G> jsonResponse = new JsonResponse<>();
+        jsonResponse.setResponseType(ResponseType.ERROR);
+        return jsonResponse;
+    }
+
     public static <G> JsonResponse<G> formError(G error) {
         JsonResponse<G> jsonResponse = new JsonResponse<>();
         jsonResponse.setResponseType(ResponseType.FORM_ERROR);

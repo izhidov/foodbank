@@ -8,7 +8,7 @@
 <body>
 <div layout:fragment="content" th:remove="tag">
     <h1 class="text-center my-3">Clients search form</h1>
-    <form action="#" th:action="@{/api/client/search}" th:object="${clientSearchForm}" method="get">
+    <form id="clientSearchForm" action="#" th:action="@{/api/client/search}" th:object="${clientSearchForm}" method="get">
         <div class="row">
             <div class="form-group col-md-2">
                 <label class="col-form-label" for="lastname">Birth date:</label>

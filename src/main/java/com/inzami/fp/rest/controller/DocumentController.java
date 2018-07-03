@@ -7,6 +7,7 @@ import com.inzami.fp.rest.dto.JsonResponse;
 import com.inzami.fp.rest.dto.save.DocumentSaveDTO;
 import com.inzami.fp.rest.dto.search.CheckDocumentReceivedDTO;
 import com.inzami.fp.rest.dto.search.DocumentSearchForm;
+import com.inzami.fp.rest.dto.update.MemberUpdateDTO;
 import com.inzami.fp.rest.dto.view.DocumentLightViewDTO;
 import com.inzami.fp.rest.dto.view.DocumentViewDTO;
 import com.inzami.fp.rest.dto.view.MemberViewDTO;
@@ -85,9 +86,9 @@ public class DocumentController {
     @ApiOperation(value = "Create new document")
     public String createDocument(@ModelAttribute("document") DocumentSaveDTO documentSaveDTO, Model model) {
 
-        List<MemberViewDTO> members = documentSaveDTO.getMembers();
+        List<MemberUpdateDTO> members = documentSaveDTO.getMembers();
         if (CollectionUtils.isNotEmpty(members)) {
-            List<MemberViewDTO> notEmptyMembers = members.stream().filter(member -> !Stream.of(member.getFirstName(), member.getLastName(),
+            List<MemberUpdateDTO> notEmptyMembers = members.stream().filter(member -> !Stream.of(member.getFirstName(), member.getLastName(),
                     member.getBirthDate()).allMatch(StringUtils::isBlank)).collect(Collectors.toList());
             boolean hasErrors = notEmptyMembers.stream().anyMatch(member -> Stream.of(member.getFirstName(), member.getLastName(),
                     member.getBirthDate()).anyMatch(StringUtils::isBlank));

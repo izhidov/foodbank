@@ -9,6 +9,7 @@ import com.inzami.fp.repository.DocumentMemberRepository;
 import com.inzami.fp.repository.DocumentRepository;
 import com.inzami.fp.repository.MemberRepository;
 import com.inzami.fp.rest.dto.save.DocumentSaveDTO;
+import com.inzami.fp.rest.dto.update.MemberUpdateDTO;
 import com.inzami.fp.rest.dto.view.ClientViewDTO;
 import com.inzami.fp.rest.dto.view.DocumentPdfViewDTO;
 import com.inzami.fp.rest.dto.view.MemberViewDTO;
@@ -89,8 +90,8 @@ public class DocumentService {
         documentSaveDTO.setNumber(number);
         documentSaveDTO.setClient(clientViewDTO);
         List<Member> members = memberRepository.findByClientAndActiveTrue(client);
-        List<MemberViewDTO> memberViewDTOS = mapperFacade.mapAsList(members, MemberViewDTO.class);
-        documentSaveDTO.setMembers(memberViewDTOS);
+        List<MemberUpdateDTO> memberUpdateDTOS = mapperFacade.mapAsList(members, MemberUpdateDTO.class);
+        documentSaveDTO.setMembers(memberUpdateDTOS);
         return documentSaveDTO;
     }
 
@@ -125,9 +126,8 @@ public class DocumentService {
         save(document);
 
         if (CollectionUtils.isNotEmpty(documentSaveDTO.getMembers())) {
-            documentSaveDTO.getMembers()
-                    .forEach(memberDTO -> {
-                        Member member = memberService.saveOrUpdate(memberDTO, client);
+            List<Member> members = memberService.saveMembers(client.getId(), documentSaveDTO.getMembers());
+            members.forEach(member -> {
                         DocumentMember documentMember = new DocumentMember();
                         documentMember.setClient(client);
                         documentMember.setDocument(document);

@@ -13,5 +13,5 @@ public class MemberUpdateDTO {
     @NotNull
     private String lastName;
     private String birthDate;
-    private Boolean active;
+    private Boolean active = true;
 }

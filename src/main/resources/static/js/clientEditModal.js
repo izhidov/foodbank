@@ -10,17 +10,18 @@ $('#createClientBtn').on('click', function (event) {
     clientEditModalSubmit.text('Save');
     clearClientEditModel();
     hideClientEditModalCreateDocBtn();
+    $('#clientsDialog-hints').remove();
 });
 
 function hideClientEditModalCreateDocBtn() {
-    if(!clientEditModalCreateDocBtn.hasClass('d-none')) {
+    if (!clientEditModalCreateDocBtn.hasClass('d-none')) {
         clientEditModalCreateDocBtn.addClass('d-none');
     }
     clientEditModalCreateDocBtn.attr('href', '#')
 }
 
 function showClientEditModalCreateDocBtn(clientId) {
-    if(clientEditModalCreateDocBtn.hasClass('d-none')) {
+    if (clientEditModalCreateDocBtn.hasClass('d-none')) {
         clientEditModalCreateDocBtn.removeClass('d-none');
     }
     clientEditModalCreateDocBtn.attr('href', '/api/document/precreate/fromClient/' + clientId)
@@ -38,9 +39,9 @@ function clearClientEditModelErrors() {
     clientEditModalForm.find("input").removeClass('fieldError');
 }
 
-$('.client-list-td').on('click', function (event) {
+var viewClientForUpdate = function (tdThis) {
     clearClientEditModel();
-    var td = $(this);
+    var td = $(tdThis);
     var tr = td.parent();
     var id = tr.data('id');
     var url = '/api/client/' + id;
@@ -54,7 +55,29 @@ $('.client-list-td').on('click', function (event) {
         clientEditModalSubmit.text('Update');
         clientEditModal.modal('show');
     });
-});
+    $('#clientsDialog-hints').remove();
+};
+
+function initClientList() {
+    $('.client-list-td').on('click', function (event) {
+        clearClientEditModel();
+        var td = $(this);
+        var tr = td.parent();
+        var id = tr.data('id');
+        var url = '/api/client/' + id;
+        showClientEditModalCreateDocBtn(id);
+        $.ajax({
+            url: url
+
+        }).then(function (data) {
+            clientEditModalForm.populate(data.result);
+            clientEditModalForm.attr('action', url);
+            clientEditModalSubmit.text('Update');
+            clientEditModal.modal('show');
+        });
+        $('#clientsDialog-hints').remove();
+    });
+};
 
 clientEditModalSubmit.on('click', function (event) {
     clearClientEditModelErrors();
@@ -82,4 +105,31 @@ clientEditModalSubmit.on('click', function (event) {
     }).fail(function (data) {
         clientEditModal.find('.modal-body').append("<div class=\"alert alert-danger\">Server error</div>")
     });
+});
+
+$('#clientEditModal-birthDate').change(function () {
+    var dob = $(this).val();
+    $.post('/api/client/search/dialog', {birthDate: dob}, function (data) {
+        if (data.responseType === 'SUCCESS') {
+            $('#clientsDialog-hints').remove();
+            var hints = createHintsTable(data);
+            clientEditModal.find('.modal-body').prepend(hints);
+        } else {
+            $('#clientsDialog-hints').remove();
+        }
+    });
+    initClientList();
+});
+
+function createHintsTable(data) {
+    var table = '<div id="clientsDialog-hints"> <h3>Existing clients</h3><table class="table table-hover table-bordered"><tbody>';
+    $.each(data.result, function (key, value) {
+        table += '<tr class="client-list-row" data-id="' + value.id + '"><td class="client-list-td" onclick="viewClientForUpdate(this)">' + value.info + '</td></tr>'
+    });
+    table += '</tbody></table></div>';
+    return table;
+}
+
+$(document).ready(function () {
+    initClientList();
 });

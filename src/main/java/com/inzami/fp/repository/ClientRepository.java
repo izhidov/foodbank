@@ -21,4 +21,5 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 	@Query(value = "SELECT c FROM Client c WHERE c.firstName like CONCAT(:firstName, '%') AND c.lastName like CONCAT(:lastName, '%') AND c.birthDate like CONCAT(:birthDate, '%') ORDER BY c.firstName")
 	List<Client> findByFirstNameLikeAndLastNameLikeAndBirthDateLike(String firstName, String lastName, String birthDate, Pageable pageable);
 
+	List<Client> findByBirthDate(String birthDate, Pageable pageable);
 }

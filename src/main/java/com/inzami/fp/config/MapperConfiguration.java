@@ -41,6 +41,8 @@ public class MapperConfiguration {
     private UserSaveDTOToDomainMapper userSaveDTOToDomainMapper;
     @Autowired
     private UserToViewDTOMapper userToViewDTOMapper;
+    @Autowired
+    private ClientToInfoDTOMapper clientToInfoDTOMapper;
 
     @Bean
     public MapperFacade mapperFacade() {
@@ -60,6 +62,10 @@ public class MapperConfiguration {
         mapperFactory.classMap(ClientSaveDTO.class, Client.class)
                 .byDefault()
                 .customize(clientSaveDTOToDomainMapper)
+                .register();
+        mapperFactory.classMap(Client.class, ClientInfoDTO.class)
+                .byDefault()
+                .customize(clientToInfoDTOMapper)
                 .register();
 
         //DOCUMENT MEMBER

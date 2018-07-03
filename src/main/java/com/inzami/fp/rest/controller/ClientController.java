@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFacade;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/api/client")
@@ -74,6 +79,21 @@ public class ClientController {
         List<ClientViewDTO> clientViewDTOS = mapperFacade.mapAsList(clients, ClientViewDTO.class);
         model.addAttribute("clientList", clientViewDTOS);
         return "client";
+    }
+
+    @PostMapping("/search/dialog")
+    @ApiOperation(value = "Search clients for create dialog autocomplete")
+    @PreAuthorize("isAuthenticated()")
+    @ResponseBody
+    public JsonResponse<List<ClientInfoDTO>> searchForDialog(@RequestParam String birthDate) throws UnsupportedEncodingException {
+        birthDate = URLDecoder.decode(birthDate, "UTF8");
+        if (StringUtils.isNotBlank(birthDate) && !birthDate.matches("\\d\\d/\\d\\d/\\d\\d\\d\\d")) {
+            return JsonResponse.error();
+        }
+        List<Client> clients = clientRepository.findByBirthDate(birthDate, new PageRequest(0, 5));
+        if(CollectionUtils.isEmpty(clients)) return JsonResponse.error();
+        List<ClientInfoDTO> clientInfoDTOS = mapperFacade.mapAsList(clients, ClientInfoDTO.class);
+        return JsonResponse.success(clientInfoDTOS);
     }
 
     // get by id
