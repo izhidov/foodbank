@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
+import com.inzami.fp.config.ConfigurationProperties;
 import com.inzami.fp.domain.Document;
 import com.inzami.fp.rest.dto.view.DocumentPdfViewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class PdfGeneratorUtil {
     public File createPdf(String templateName, DocumentPdfViewDTO documentPdfViewDTO) throws Exception {
         Assert.notNull(templateName, "The templateName can not be null");
         Context ctx = new Context();
+        Integer weeks = ConfigurationProperties.getIntegerProperty(ConfigurationProperties.VISIT_INTERVAL_LIMIT_WEEKS);
         ctx.setVariable("document", documentPdfViewDTO);
+        ctx.setVariable("visitLimit", weeks);
 
         String processedHtml = templateEngine.process(templateName, ctx);
         FileOutputStream os = null;
