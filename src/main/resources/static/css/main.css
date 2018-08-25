@@ -111,3 +111,7 @@ td.actions-col {
     cursor: pointer;
 }
 
+#clientsDialog-hints {
+    border: 5px solid red;
+}
+
