@@ -86,6 +86,32 @@ public class ClientService {
         client.setEmail(clientUpdateDTO.getEmail());
         client.setPhone(clientUpdateDTO.getPhone());
 
+        client.setHomeless("on".equals(clientUpdateDTO.getHomeless()));
+
+        if (!clientUpdateDTO.getGender().equals("0")) {
+            client.setGender(clientUpdateDTO.getGender());
+        }
+        if (!clientUpdateDTO.getGovernmentBenefits().equals("0")) {
+            client.setGovernmentBenefits(clientUpdateDTO.getGovernmentBenefits());
+        }
+        if (!clientUpdateDTO.getMaritalStatus().equals("0")) {
+            client.setMaritalStatus(clientUpdateDTO.getMaritalStatus());
+        }
+        if (!clientUpdateDTO.getMilitaryStatus().equals("0")) {
+            client.setMilitaryStatus(clientUpdateDTO.getMilitaryStatus());
+        }
+        if (!clientUpdateDTO.getEmployment().equals("0")) {
+            client.setEmployment(clientUpdateDTO.getEmployment());
+        }
+        if (!clientUpdateDTO.getRace().equals("0")) {
+            client.setRace(clientUpdateDTO.getRace());
+            if(clientUpdateDTO.getRace().equals("OTHER")){
+                client.setOtherRace(clientUpdateDTO.getOtherRace());
+            } else {
+                client.setOtherRace(null);
+            }
+        }
+
         client = clientRepository.save(client);
         return client;
     }

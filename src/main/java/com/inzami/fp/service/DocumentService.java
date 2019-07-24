@@ -171,6 +171,14 @@ public class DocumentService {
         return file;
     }
 
+    public File getPdfNew(Long documentId) throws Exception {
+        Document document = findOne(documentId);
+        DocumentPdfViewDTO documentPdfViewDTO = mapperFacade.map(document, DocumentPdfViewDTO.class);
+        // TODO: 29.05.2018 check template according to document type or user organisation
+        File file = pdfGeneratorUtil.createPdf("voucherTemplateNew", documentPdfViewDTO);
+        return file;
+    }
+
     public Boolean checkAlreadyReceived(Long clientId, Integer weeks) {
         ZonedDateTime zonedDateTime = ZonedDateTime.now().minusWeeks(weeks);
         Long count = documentRepository.countByClientIdAndCreatedAtAfter(clientId, zonedDateTime);

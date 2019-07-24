@@ -1,0 +1,1 @@
+ALTER TABLE client ADD COLUMN other_race VARCHAR(255);

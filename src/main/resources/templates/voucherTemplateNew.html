@@ -1,0 +1,256 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Food pantry</title>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+        }
+
+        .fssmal {
+            font-size: 13px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td:nth-child(1) {
+            width: 5%;
+        }
+
+        td:nth-child(2) {
+            width: 50%;
+        }
+
+        td:nth-child(3) {
+            width: 25%;
+        }
+
+        td:nth-child(4) {
+            width: 20%;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+
+        .text-underline {
+            text-decoration: underline;
+        }
+
+        .my1 {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .my10 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .my2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .ml {
+            margin-left: 15px;
+        }
+
+        .ml0 {
+            margin-left: 0;
+        }
+
+        .mb1 {
+            margin-bottom: 5px;
+        }
+
+        .extra-font-size {
+            font-size: 16px;
+        }
+
+        .block-left {
+            width: 220px;
+        }
+
+        @page {
+            margin: 0.5cm 1cm;
+            size: A4 portrait;
+        }
+    </style>
+</head>
+<body>
+<div class="extra-font-size">
+    <div class="text-center">
+        <h2 class="text-bold">EMERGENCY FOOD PANTRY</h2>
+        <p class="my1">Sixth &amp; Minnesota</p>
+        <p class="my1">Chickasha, Oklahoma 73023</p>
+        <p class="text-bold my1" th:text="${'Document number: ' + document.number}"></p>
+    </div>
+    <div>
+        <p class="mb1" th:text="${'Document valid until: ' + document.expiredAt}"></p>
+        <p class="my1" th:text="${'Eligibility Date: ' + document.eligibilityDate}"></p>
+        <p class="text-bold my1" th:text="${'Issue Date ' + document.createdAt}"></p>
+        <p>Persons living together as one household:</p>
+    </div>
+    <table class="ml0">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Birth date / Age</td>
+            <td>Child under 18?</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member, stat : ${document.members}">
+            <td th:text="${stat.count}"></td>
+            <td th:class="${stat.count == 1}? 'text-bold'" th:text="${member.firstName + ' ' + member.lastName}"></td>
+            <td th:text="${member.birthDate} + ' / ' + ${member.age}"></td>
+            <td class="text-center" th:text="${member.age} < 18 ? 'Yes' : 'No'"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <p class="mb1 fssmal">
+        <span>Phone Number: </span><span th:text="${' ' + document.client.phone}"></span>
+    </p>
+    <p class="mb1 fssmal">
+        <span>Homeless: </span>
+        <span th:class="${document.client.homeless} ? 'text-bold text-underline ml' : 'ml'">Yes</span>
+        <span th:class="${!document.client.homeless} ? 'text-bold text-underline ml' : 'ml'">No</span>
+    </p>
+    <p class="mb1 fssmal">
+        <span>Client's STREET Address (no PO Box Please):</span>
+        <span th:text="${' ' + document.client.address1}"></span>
+        <span th:text="${'City - Zip Code (Please list): ' + document.client.city + ' - ' + document.client.zip}"></span>
+    </p>
+
+    <table class="fssmal ml0">
+        <tbody>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold block-left">Gender Identity: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.gender.equals('FEMALE')} ? 'text-bold text-underline ml' : 'ml'">Female</span>
+                <span th:class="${document.client.gender.equals('MALE')} ? 'text-bold text-underline ml' : 'ml'">Male</span>
+                <span th:class="${document.client.gender.equals('TRANSGENDER')} ? 'text-bold text-underline ml' : 'ml'">Transgender</span>
+                <span th:class="${document.client.gender.equals('OTHER')} ? 'text-bold text-underline ml' : 'ml'">Do not identify as female, male or transgender</span>
+            </td>
+        </tr>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold">Race or Ethnicity: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.race.equals('WHITE')} ? 'text-bold text-underline ml' : 'ml'">White</span>
+                <span th:class="${document.client.race.equals('HISPANIC')} ? 'text-bold text-underline ml' : 'ml'">Hispanic, Latino or Spanish</span>
+                <span th:class="${document.client.race.equals('BLACK')} ? 'text-bold text-underline ml' : 'ml'">Black or African American</span>
+                <span th:class="${document.client.race.equals('ASIAN')} ? 'text-bold text-underline ml' : 'ml'">Asian</span>
+                <br></br>
+                <span th:class="${document.client.race.equals('INDIAN')} ? 'text-bold text-underline ml' : 'ml'">American Indian or Alaska Native</span>
+                <span th:class="${document.client.race.equals('AFRICAN')} ? 'text-bold text-underline ml' : 'ml'">Middle Eastern or North African</span>
+                <br></br>
+                <span th:class="${document.client.race.equals('HAWAII')} ? 'text-bold text-underline ml' : 'ml'">Native Hawaiian or other Pacific Islander</span>
+                <span th:class="${document.client.race.equals('NO_ANSWER')} ? 'text-bold text-underline ml' : 'ml'">Prefer not to answer</span>
+                <div th:if="${document.client.race.equals('OTHER')}" th:remove="tag">
+                    <span class="text-bold text-underline ml" th:text="${'Other: ' + document.client.otherRace}"></span>
+                </div>
+            </td>
+        </tr>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold block-left">Marital Status: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.maritalStatus.equals('SINGLE')} ? 'text-bold text-underline ml' : 'ml'">Single</span>
+                <span th:class="${document.client.maritalStatus.equals('MARRIED')} ? 'text-bold text-underline ml' : 'ml'">Married</span>
+                <span th:class="${document.client.maritalStatus.equals('DIVORCED')} ? 'text-bold text-underline ml' : 'ml'">Divorced</span>
+                <span th:class="${document.client.maritalStatus.equals('WIDOWED')} ? 'text-bold text-underline ml' : 'ml'">Widowed</span>
+                <span th:class="${document.client.maritalStatus.equals('PARTNER')} ? 'text-bold text-underline ml' : 'ml'">Domestic partner</span>
+            </td>
+        </tr>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold block-left">Military Status: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.militaryStatus.equals('ACTIVE_DUTY')} ? 'text-bold text-underline ml' : 'ml'">Active Duty</span>
+                <span th:class="${document.client.militaryStatus.equals('RETIRED')} ? 'text-bold text-underline ml' : 'ml'">Retired</span>
+                <span th:class="${document.client.militaryStatus.equals('RESERVIST')} ? 'text-bold text-underline ml' : 'ml'">Reservist</span>
+                <span th:class="${document.client.militaryStatus.equals('VETERAN')} ? 'text-bold text-underline ml' : 'ml'">Veteran</span>
+                <span th:class="${document.client.militaryStatus.equals('NOT_APPLICABLE')} ? 'text-bold text-underline ml' : 'ml'">Not Applicable</span>
+            </td>
+        </tr>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold block-left">Employment: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.employment.equals('FULL_TIME')} ? 'text-bold text-underline ml' : 'ml'">Employed Full-Time</span>
+                <span th:class="${document.client.employment.equals('PART_TIME')} ? 'text-bold text-underline ml' : 'ml'">Employed Part-Time</span>
+                <span th:class="${document.client.employment.equals('JOBS')} ? 'text-bold text-underline ml' : 'ml'">Working Multiple Jobs</span>
+                <span th:class="${document.client.employment.equals('SELF')} ? 'text-bold text-underline ml' : 'ml'">Self-Employed</span>
+                <br></br>
+                <span th:class="${document.client.employment.equals('RETIRED')} ? 'text-bold text-underline ml' : 'ml'">Retired</span>
+                <span th:class="${document.client.employment.equals('DISABILITY')} ? 'text-bold text-underline ml' : 'ml'">Unable to Work due to Disability</span>
+                <span th:class="${document.client.employment.equals('UNEMPLOYED')} ? 'text-bold text-underline ml' : 'ml'">Unemployed</span>
+            </td>
+        </tr>
+        <tr class="my2">
+            <td class="block-left">
+                <span class="text-bold block-left">Government Benefits: </span>
+            </td>
+            <td>
+                <span th:class="${document.client.governmentBenefits.equals('DISABILITY')} ? 'text-bold text-underline ml' : 'ml'">Disability</span>
+                <span th:class="${document.client.governmentBenefits.equals('SSI')} ? 'text-bold text-underline ml' : 'ml'">Social Security (SSI)</span>
+                <span th:class="${document.client.governmentBenefits.equals('VETERAN')} ? 'text-bold text-underline ml' : 'ml'">Veteran Benefits</span>
+                <span th:class="${document.client.governmentBenefits.equals('UNEMPLOYMENT')} ? 'text-bold text-underline ml' : 'ml'">Unemployment</span>
+                <span th:class="${document.client.governmentBenefits.equals('SNAP')} ? 'text-bold text-underline ml' : 'ml'">SNAP (food stamps)</span>
+                <br></br>
+                <span th:class="${document.client.governmentBenefits.equals('WIC')} ? 'text-bold text-underline ml' : 'ml'">WIC</span>
+                <span th:class="${document.client.governmentBenefits.equals('TANF')} ? 'text-bold text-underline ml' : 'ml'">TANF</span>
+                <span th:class="${document.client.governmentBenefits.equals('MEDICAID')} ? 'text-bold text-underline ml' : 'ml'">Medicaid/SoonerCare</span>
+                <span th:class="${document.client.governmentBenefits.equals('MEDICARE')} ? 'text-bold text-underline ml' : 'ml'">Medicare</span>
+                <span th:class="${document.client.governmentBenefits.equals('NOT_APPLICABLE')} ? 'text-bold text-underline ml' : 'ml'">Not Applicable</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p class="my10 fssmal">
+        <span class="text-underline text-bold">RELEASE OF INFORMATION</span>
+        <span>: I give my consent for release of information of my situation from the records of any referring social
+            service agency to determine eligibility for Emergency Food Pantry service.</span>
+    </p>
+    <p class="my10 fssmal">
+        <span class="text-underline text-bold">DISCLAIMER</span>
+        <span>: The Emergency Food Pantry and its donors express no warranties in this gift of food and disclaim any
+            liability or causes of action resulting from the condition of the donated food. The client agrees not to
+            sell any of this food.</span>
+    </p>
+    <p class="my10 fssmal">
+        <span class="text-underline text-bold">PREVIOUS VISIT</span>
+        <span th:text="${': No one from this household, including myself has received food from this pantry in the last ' + visitLimit + ' weeks.'}"></span>
+    </p>
+</div>
+<div class="extra-font-size">
+    <p class="my1">Client's Signature: _____________________________________</p>
+    <p class="my1">Other Information: _____________________________________</p>
+    <p class="text-bold my1" th:text="${'Agency Name: ' + document.organizationName}"></p>
+    <p class="my1">Agency Representative Signature: ________________________</p>
+    <p>
+        *********************************************************************************************************************************</p>
+    <p class="my1">Food Pantry Volunteer's Signature: _______________________</p>
+    <p class="my1">Date of Services: ______________________________________</p>
+</div>
+</body>
+</html>

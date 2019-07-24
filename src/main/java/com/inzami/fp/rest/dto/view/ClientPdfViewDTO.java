@@ -1,34 +1,23 @@
-package com.inzami.fp.rest.dto.save;
+package com.inzami.fp.rest.dto.view;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.Pattern;
 
 @Data
-public class ClientSaveDTO {
+public class ClientPdfViewDTO {
 
-    @NotBlank
+    private Long id;
     private String firstName;
-    @NotBlank
     private String lastName;
-    @NotBlank
     private String address1;
     private String address2;
-    @NotBlank
     private String city;
-    @NotBlank
     private String state;
-    @NotBlank
     private String zip;
-    @Pattern(regexp = "\\d\\d/\\d\\d/\\d\\d\\d\\d", message = "Format MM/dd/yyyy")
     private String birthDate;
-    @Email
     private String email;
     private String phone;
 
-    private String homeless;
+    private Boolean homeless;
     private String gender;
     private String race;
     private String otherRace;

@@ -11,6 +11,6 @@ public class ClientSaveDTOToDomainMapper extends CustomMapper<ClientSaveDTO, Cli
 
     @Override
     public void mapAtoB(ClientSaveDTO clientSaveDTO, Client client, MappingContext context) {
-
+        client.setHomeless("on".equals(clientSaveDTO.getHomeless()));
     }
 }

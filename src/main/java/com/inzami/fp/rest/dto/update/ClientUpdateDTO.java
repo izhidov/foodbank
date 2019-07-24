@@ -28,4 +28,13 @@ public class ClientUpdateDTO {
     @Email
     private String email;
     private String phone;
+
+    private String homeless;
+    private String gender;
+    private String race;
+    private String otherRace;
+    private String maritalStatus;
+    private String militaryStatus;
+    private String employment;
+    private String governmentBenefits;
 }

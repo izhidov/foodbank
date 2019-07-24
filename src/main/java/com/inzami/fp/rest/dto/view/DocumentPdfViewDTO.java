@@ -15,7 +15,7 @@ public class DocumentPdfViewDTO {
     private DocumentType type;
     private String organizationName;
     private String number;
-    private ClientViewDTO client;
+    private ClientPdfViewDTO client;
     private String expiredAt;
     private String createdAt;
     private String eligibilityDate;

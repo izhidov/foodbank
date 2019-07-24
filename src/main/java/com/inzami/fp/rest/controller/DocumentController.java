@@ -173,4 +173,27 @@ public class DocumentController {
         response.setHeader("Content-Length", String.valueOf(file.length()));
         FileCopyUtils.copy(in, response.getOutputStream());
     }
+
+    @GetMapping(value = "/pdf/preview_new/{documentId}", produces = APPLICATION_PDF_VALUE)
+    @ApiOperation(value = "Preview pdf file")
+    @ResponseBody
+    public Resource previewPdfNew(@PathVariable Long documentId, HttpServletResponse response) throws Exception {
+        File file = documentService.getPdfNew(documentId);
+        response.setContentType(APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "inline; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        return new FileSystemResource(file);
+    }
+
+    @GetMapping(value = "/pdf/download_new/{documentId}", produces = APPLICATION_PDF_VALUE)
+    @ApiOperation(value = "Download pdf file")
+    @ResponseBody
+    public void downloadPdfNew(@PathVariable Long documentId, HttpServletResponse response) throws Exception {
+        File file = documentService.getPdfNew(documentId);
+        InputStream in = new FileInputStream(file);
+        response.setContentType(APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        FileCopyUtils.copy(in, response.getOutputStream());
+    }
 }

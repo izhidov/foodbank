@@ -33,5 +33,7 @@ public class DocumentToViewDTOMapper extends CustomMapper<Document, DocumentView
         documentViewDTO.setExpiredAt(expiredAt);
         String createdAt = DateTimeFormatter.ofPattern("MM/dd/yyyy").format(document.getCreatedAt());
         documentViewDTO.setCreatedAt(createdAt);
+
+
     }
 }
