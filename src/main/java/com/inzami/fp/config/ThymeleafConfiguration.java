@@ -1,4 +1,4 @@
-package inzami.com.fp.config;
+package com.inzami.fp.config;
 
 import org.codehaus.groovy.runtime.ArrayUtil;
 import org.springframework.beans.factory.annotation.Autowired;

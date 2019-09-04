@@ -215,21 +215,21 @@
                            <!--class="btn btn-lg btn-warning float-right ml-1"-->
                            <!--value="Validate">-->
                 <!--</th:block>-->
-                <a class="btn btn-primary btn-lg float-right"
-                   th:href="@{/api/document/pdf/download/{id}(id = ${document.id})}" role="button" aria-pressed="false">Download
-                    pdf</a>
-                <a th:target="_blank" class="btn btn-secondary btn-lg float-right mx-1"
-                   th:href="@{/api/document/pdf/preview/{id}(id = ${document.id})}" role="button" aria-pressed="false">Preview
-                    pdf</a>
+<!--                <a class="btn btn-primary btn-lg float-right"-->
+<!--                   th:href="@{/api/document/pdf/download/{id}(id = ${document.id})}" role="button" aria-pressed="false">Download-->
+<!--                    pdf (OLD)</a>-->
+<!--                <a th:target="_blank" class="btn btn-secondary btn-lg float-right mx-1"-->
+<!--                   th:href="@{/api/document/pdf/preview/{id}(id = ${document.id})}" role="button" aria-pressed="false">Preview-->
+<!--                    pdf (OLD)</a>-->
                 <a class="btn btn-warning btn-lg float-right mx-1"
                    th:href="@{/api/document/precreate/fromDocument/{id}(id = ${document.id})}" role="button" aria-pressed="false">
                     Create new</a>
                 <a class="btn btn-primary btn-lg float-right mx-1"
-                   th:href="@{/api/document/pdf/download-new/{id}(id = ${document.id})}" role="button" aria-pressed="false">Download
-                    pdf (NEW)</a>
+                   th:href="@{/api/document/pdf/download_new/{id}(id = ${document.id})}" role="button" aria-pressed="false">Download
+                    pdf</a>
                 <a th:target="_blank" class="btn btn-secondary btn-lg float-right mx-1"
                    th:href="@{/api/document/pdf/preview_new/{id}(id = ${document.id})}" role="button" aria-pressed="false">Preview
-                    pdf (NEW)</a>
+                    pdf</a>
             </div>
         </form>
     </div>
