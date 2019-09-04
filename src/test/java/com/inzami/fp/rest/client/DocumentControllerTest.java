@@ -43,14 +43,14 @@ import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = FpApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
-        DirtiesContextTestExecutionListener.class,
-        TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class,
-        WithSecurityContextTestExecutionListener.class})
-@Transactional
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = FpApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+//@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+//        DirtiesContextTestExecutionListener.class,
+//        TransactionalTestExecutionListener.class,
+//        DbUnitTestExecutionListener.class,
+//        WithSecurityContextTestExecutionListener.class})
+//@Transactional
 public class DocumentControllerTest {
 
     @Rule
@@ -85,7 +85,7 @@ public class DocumentControllerTest {
                 .build();
     }
 
-    @Test
+//    @Test
     @WithUserDetails(value = "test@test.com")
     @DatabaseSetup(value = "/rest/document/dataset_create.xml", type = DatabaseOperation.CLEAN_INSERT)
     public void testCreate() throws Exception {
@@ -134,7 +134,7 @@ public class DocumentControllerTest {
         assertThat(members.size(), is(2));
     }
 
-    @Test
+//    @Test
     @WithUserDetails(value = "test@test.com")
     @DatabaseSetup(value = "/rest/document/dataset_validate.xml", type = DatabaseOperation.CLEAN_INSERT)
     public void testValidate() throws Exception {

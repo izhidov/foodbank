@@ -5,5 +5,10 @@ spring:
         username: app
         password: password
 
-fp:
+logging:
+    config: classpath:config/logback-spring.xml
+    file: fp.log
+    path: /var/log/fp
 
+fp:
+    debug: false
