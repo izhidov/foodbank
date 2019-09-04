@@ -4,11 +4,3 @@ spring:
         url: jdbc:mysql://localhost:3306/fp
         username: app
         password: password
-
-logging:
-    config: classpath:config/logback-spring.xml
-    file: fp.log
-    path: /var/log/fp
-
-fp:
-    debug: false

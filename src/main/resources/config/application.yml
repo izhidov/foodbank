@@ -38,7 +38,7 @@ spring:
             force: true
             charset: UTF-8
     profiles:
-        active: prod
+        active: dev
     application:
         name: Food pantry service
         index: 1
